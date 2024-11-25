@@ -1,0 +1,7 @@
+apiVersion: v2
+name: autonmis
+description: Helm chart to deploy autonmis
+type: application
+version: 1.0.0
+appVersion: "2.0"
+icon: "https://autonmis.com/logo-sidebar-dark.svg"

@@ -1,0 +1,5 @@
+ingress:
+  host: kuber.autonmis.com
+  
+  tls:
+    secretName: autonmis-tls-secret

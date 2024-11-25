@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: autonmis-app
+  labels:
+    app: autonmis-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: autonmis-app
+  template:
+    metadata:
+      labels:
+        app: autonmis-app
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: autonmis-app
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: autonmis-app
+          image: vampconnoisseur/autonmis:airflow_ext
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+            limits:
+              cpu: 1
+              memory: 1.5Gi

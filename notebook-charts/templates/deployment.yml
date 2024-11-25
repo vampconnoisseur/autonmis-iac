@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notebook-server
+  labels:
+    app: notebook-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: notebook-server
+  template:
+    metadata:
+      labels:
+        app: notebook-server
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: notebook-server
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: notebook-server
+          image: vampconnoisseur/notebook-server:1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: websocket
+              containerPort: 8765
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 800m
+              memory: 1Gi
+            limits:
+              cpu: 1
+              memory: 2Gi

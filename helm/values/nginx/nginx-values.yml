@@ -1,0 +1,26 @@
+controller:
+  config:
+    ssl-redirect: "false"
+  kind: DaemonSet
+  watchIngressWithoutClass: true
+  tolerations:
+    - key: "CriticalAddonsOnly"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  service:
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-type: external
+      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+      service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: 2
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: 8
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: 30
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: 30
