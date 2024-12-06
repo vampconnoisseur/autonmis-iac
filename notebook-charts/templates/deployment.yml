@@ -23,7 +23,7 @@ spec:
               topologyKey: "kubernetes.io/hostname"
       containers:
         - name: notebook-server
-          image: vampconnoisseur/notebook-server:1
+          image: vampconnoisseur/notebook-server:2
           imagePullPolicy: IfNotPresent
           ports:
             - name: websocket
@@ -36,3 +36,10 @@ spec:
             limits:
               cpu: 1
               memory: 2Gi
+          volumeMounts:
+            - name: notebook-volume
+              mountPath: /app
+      volumes:
+        - name: notebook-volume
+          persistentVolumeClaim:
+            claimName: notebook-server-pvc

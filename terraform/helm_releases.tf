@@ -73,7 +73,7 @@ resource "helm_release" "cert_manager" {
 
 resource "helm_release" "autonmis" {
   name             = "autonmis"
-  chart            = "./autonmis-charts"
+  chart            = "../autonmis-charts"
   namespace        = "autonmis"
   version          = "1.0.0"
   create_namespace = true
@@ -90,7 +90,7 @@ resource "helm_release" "autonmis" {
 
 resource "helm_release" "notebook" {
   name             = "notebook"
-  chart            = "./notebook-charts"
+  chart            = "../notebook-charts"
   namespace        = "notebook"
   create_namespace = true
 
